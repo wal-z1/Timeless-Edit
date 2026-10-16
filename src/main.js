@@ -16,8 +16,11 @@ const progress = document.querySelector('.progress span');
 const autoScrollButton = document.querySelector('.autoscroll');
 const youtubeToggle = document.querySelector('.youtube-player__toggle');
 const youtubePlayer = document.querySelector('.youtube-player');
+const youtubeFrame = document.querySelector('#youtube-iframe');
+const autoScrollPrompt = document.querySelector('.autoscroll-prompt');
 let autoScrollTimer;
 let autoScrolling = false;
+let youtubeController;
 
 function lineMarkup(text) {
   return formatLine(text).map(({ text: value, adlib }) =>
@@ -140,6 +143,7 @@ function initExperience(totalLines) {
     autoScrollButton.querySelector('.autoscroll__icon').textContent = '▶';
   }
   function startAutoScroll() {
+    if (autoScrolling) return;
     autoScrolling = true;
     autoScrollButton.setAttribute('aria-pressed', 'true');
     autoScrollButton.classList.add('is-playing');
@@ -158,6 +162,34 @@ function initExperience(totalLines) {
     if (autoScrolling) stopAutoScroll();
     else startAutoScroll();
   });
+  function rememberAutoScrollChoice(choice) {
+    try {
+      localStorage.setItem('timeless-auto-scroll', choice);
+    } catch (error) {
+      console.warn('Auto-scroll preference could not be saved.', error);
+    }
+  }
+  function showAutoScrollPrompt() {
+    let choice;
+    try {
+      choice = localStorage.getItem('timeless-auto-scroll');
+    } catch (error) {
+      console.warn('Auto-scroll preference could not be read.', error);
+    }
+    if (choice) {
+      if (choice === 'yes') startAutoScroll();
+      return;
+    }
+    autoScrollPrompt.hidden = false;
+    autoScrollPrompt.querySelector('[data-autoscroll-choice="yes"]').focus();
+  }
+  autoScrollPrompt.addEventListener('click', (event) => {
+    const choice = event.target.closest('[data-autoscroll-choice]')?.dataset.autoscrollChoice;
+    if (!choice) return;
+    rememberAutoScrollChoice(choice);
+    autoScrollPrompt.hidden = true;
+    if (choice === 'yes') startAutoScroll();
+  });
   window.addEventListener('wheel', stopAutoScroll, { passive: true });
   window.addEventListener('touchstart', stopAutoScroll, { passive: true });
   youtubeToggle.addEventListener('click', () => {
@@ -172,6 +204,48 @@ function initExperience(totalLines) {
     youtubeToggle.setAttribute('aria-expanded', 'false');
     youtubeToggle.firstChild.textContent = 'Open player ';
   });
+  function loadYouTubeApi() {
+    if (window.YT?.Player) {
+      createYouTubePlayer();
+      return;
+    }
+    window.onYouTubeIframeAPIReady = createYouTubePlayer;
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+  function createYouTubePlayer() {
+    youtubeController = new window.YT.Player(youtubeFrame, {
+      events: {
+        onStateChange: ({ data }) => {
+          if (data === window.YT.PlayerState.PLAYING) {
+            youtubePlayer.classList.add('is-playing');
+            if (autoScrolling) return;
+            syncLyricsToPlayback();
+          } else {
+            youtubePlayer.classList.remove('is-playing');
+          }
+        }
+      }
+    });
+  }
+  function syncLyricsToPlayback() {
+    if (!youtubeController?.getDuration) return;
+    const duration = youtubeController.getDuration();
+    if (!duration) return;
+    const ratio = Math.min(1, youtubeController.getCurrentTime() / duration);
+    const index = Math.min(lines.length - 1, Math.floor(ratio * lines.length));
+    activate(lines[index], index);
+    if (autoScrolling) {
+      lines[index].scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
+    }
+  }
+  window.setInterval(() => {
+    if (youtubeController?.getPlayerState?.() === window.YT?.PlayerState.PLAYING) syncLyricsToPlayback();
+  }, 500);
+  loadYouTubeApi();
+  showAutoScrollPrompt();
   document.querySelector('.replay').addEventListener('click', (event) => {
     event.preventDefault();
     if (lenis) lenis.scrollTo(0, { duration: 1.4 });
