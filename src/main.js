@@ -47,7 +47,7 @@ function render(data) {
       section.label.toLowerCase().includes('outro') ? ' section--outro' : '';
     const lines = section.lines.map((line) => {
       lineNumber += 1;
-      return `<p class="lyric-line" data-line="${lineNumber}" data-section="${section.label}"><span class="line__inner">${lineMarkup(line.text)}</span><span class="line-sweep" aria-hidden="true"></span></p>`;
+      return `<p class="lyric-line" data-line="${lineNumber}" data-section="${section.label}" role="button" tabindex="0" aria-label="Go to lyric line ${lineNumber}"><span class="line__inner">${lineMarkup(line.text)}</span><span class="line-sweep" aria-hidden="true"></span></p>`;
     }).join('');
     return `<section class="lyric-section${kind}" data-section-label="${section.label}">
       <header class="section-heading"><span>${section.label}</span><i>${section.performers || 'The Weeknd'}</i></header>
@@ -118,6 +118,19 @@ function initExperience(totalLines) {
       onLeave: () => line.classList.remove('is-active'),
       onLeaveBack: () => line.classList.remove('is-active')
     });
+    const selectLine = () => {
+      stopAutoScroll();
+      activate(line, index);
+      if (lenis) lenis.scrollTo(line, { offset: -window.innerHeight * .35, duration: prefersReduced ? 0 : .8 });
+      else line.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
+      seekToLine(index);
+    };
+    line.addEventListener('click', selectLine);
+    line.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      selectLine();
+    });
   });
   ScrollTrigger.create({
     trigger: document.body, start: 'top top', end: 'bottom bottom',
@@ -147,6 +160,13 @@ function initExperience(totalLines) {
       document.body.classList.add('is-beat');
     }
     countStatus.textContent = `${String(index + 1).padStart(2, '0')} / ${String(totalLines).padStart(2, '0')}`;
+  }
+  function seekToLine(index) {
+    if (!youtubeController?.getDuration) return;
+    const duration = youtubeController.getDuration();
+    if (!duration || totalLines < 2) return;
+    youtubeController.seekTo((index / (totalLines - 1)) * duration, true);
+    syncedLineIndex = index;
   }
   function stopAutoScroll() {
     autoScrolling = false;
