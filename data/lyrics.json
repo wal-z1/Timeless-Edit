@@ -7,7 +7,7 @@
       "performers": "The Weeknd",
       "lines": [
         {
-          "text": "Sun is shining, it's over",
+          "text": "Sun is shinin', it's over",
           "time": null
         },
         {
@@ -29,15 +29,15 @@
       ]
     },
     {
-      "label": "Verse 1",
-      "performers": "Playboi Carti & The Weeknd",
+      "label": "Section 1",
+      "performers": "The Weeknd",
       "lines": [
         {
-          "text": "Ever since I was a jit, knew I was the shit (Ooh, yeah)",
+          "text": "Ever since I was a jit knew I was the shit (ooh-yeah)",
           "time": null
         },
         {
-          "text": "Shawty keep wanna come 'round, she wanna get hit (Wanna get hit so hard)",
+          "text": "Shawty keep wanna come 'round, she wanna get hit (wanna get hit so hard)",
           "time": null
         },
         {
@@ -45,9 +45,15 @@
           "time": null
         },
         {
-          "text": "Double-O, bust down the watch, she know that I'm timeless (Timeless)",
+          "text": "Double-O buss down the watch, she know that I'm timeless (timeless)",
           "time": null
-        },
+        }
+      ]
+    },
+    {
+      "label": "Section 2",
+      "performers": "The Weeknd",
+      "lines": [
         {
           "text": "I put my son in some Rick",
           "time": null
@@ -57,7 +63,7 @@
           "time": null
         },
         {
-          "text": "Pockets hold twenty-two clips (Ah)",
+          "text": "Pockets hold 22 clips (ah)",
           "time": null
         },
         {
@@ -69,11 +75,17 @@
           "time": null
         },
         {
-          "text": "Bitch like a stain, get ready to lick",
+          "text": "Bih like a stain, get ready to lick",
           "time": null
-        },
+        }
+      ]
+    },
+    {
+      "label": "Section 3",
+      "performers": "The Weeknd",
+      "lines": [
         {
-          "text": "I had to tell her that ever since I was a jit, knew I was the shit (Oh)",
+          "text": "I had to tell her that ever since I was a jit knew I was the shit (oh)",
           "time": null
         },
         {
@@ -81,31 +93,33 @@
           "time": null
         },
         {
-          "text": "House like a bank, deposit this bitch, 'posit that check",
+          "text": "House like a bank (house like a bank), deposit this bit, 'posit that check",
           "time": null
         },
         {
-          "text": "Smile on my face, ain't fearing shit, come and get checked (Uh)",
+          "text": "Smile on my face, ain't fearin' shit, come and get checked (uh)",
           "time": null
         },
         {
-          "text": "Ice on my neck, double-O wrist",
+          "text": "Ice on my neck, double-O wrist, she in the Scat, helluva 'Cat",
           "time": null
         },
         {
-          "text": "She in the Scat, hell of a 'Cat",
+          "text": "Fresh out the trench, 400 packs",
+          "time": null
+        }
+      ]
+    },
+    {
+      "label": "Section 4",
+      "performers": "The Weeknd",
+      "lines": [
+        {
+          "text": "Uh, yeah, I'm spinnin' in Paris (uh)",
           "time": null
         },
         {
-          "text": "Fresh out the trench, four hundred packs",
-          "time": null
-        },
-        {
-          "text": "Uh, yeah, I'm spinnin' in Paris (Uh)",
-          "time": null
-        },
-        {
-          "text": "Dress for these hoes, they finna flock",
+          "text": "Dress for these hos, they finna flock",
           "time": null
         },
         {
@@ -123,35 +137,37 @@
       ]
     },
     {
-      "label": "Chorus",
-      "performers": "The Weeknd & Playboi Carti",
+      "label": "Section 5",
+      "performers": "The Weeknd",
       "lines": [
         {
-          "text": "(Shit, uh, yeah)",
+          "text": "(Shit, uh, yeah) ever since I was a kid, I been legit (jit, ooh, yeah)",
           "time": null
         },
         {
-          "text": "Ever since I was a kid, I been legit (Jit, ooh, nah)",
+          "text": "If I was you, I would cut up my wrist (dumb bit')",
           "time": null
         },
         {
-          "text": "If I was you, I would cut up my wrist (Dumb bit')",
-          "time": null
-        },
-        {
-          "text": "XO tatted all over her body, yeah (Yeah)",
+          "text": "XO tatted all over her body, oh (yeah)",
           "time": null
         },
         {
           "text": "She just wanna roll and I don't mind it, yeah",
           "time": null
-        },
+        }
+      ]
+    },
+    {
+      "label": "Section 6",
+      "performers": "The Weeknd",
+      "lines": [
         {
-          "text": "Ever since I was a jit, I been legit (Ooh, nah, uh)",
+          "text": "Ever since I was a jit, I been legit (ooh, na-uh)",
           "time": null
         },
         {
-          "text": "You should let her go, she wanna be it (Oh, yeah)",
+          "text": "You should let her go, she wanna be it (oh, yeah)",
           "time": null
         },
         {
@@ -159,37 +175,43 @@
           "time": null
         },
         {
-          "text": "It don't matter what they say, I'm timeless, yeah (Schyeah)",
+          "text": "It don't matter what they say, I'm timeless, yeah (schyeah)",
           "time": null
         }
       ]
     },
     {
-      "label": "Verse 2",
-      "performers": "The Weeknd & Playboi Carti",
+      "label": "Section 7",
+      "performers": "The Weeknd",
       "lines": [
         {
           "text": "Oh, city on fire when I'm comin' home",
           "time": null
         },
         {
-          "text": "Fill up the sky (Yeah), I fill up the Dome",
+          "text": "Fill up the sky (yeah), I fill up the Dome",
           "time": null
         },
         {
-          "text": "They'll play it one day (Yeah), it's a hell of a show",
+          "text": "They'll play it one day (yeah), it's a hell of a show",
           "time": null
         },
         {
           "text": "But it's gonna hurt 'cause we did it first",
           "time": null
-        },
+        }
+      ]
+    },
+    {
+      "label": "Section 8",
+      "performers": "The Weeknd",
+      "lines": [
         {
           "text": "Feel like Skateboard P, BBC boys on the creep",
           "time": null
         },
         {
-          "text": "Feel like it's '03, Neptune drum with a beam (Yeah)",
+          "text": "Feel like it's '03, Neptune drum with a beam (yeah)",
           "time": null
         },
         {
@@ -197,69 +219,69 @@
           "time": null
         },
         {
-          "text": "She fell in love with the cream (Yeah), she fell in love with the scene",
-          "time": null
-        },
-        {
-          "text": "Ooh, yeah, her man quiet, not a peep (Oh, nah)",
-          "time": null
-        },
-        {
-          "text": "Broke his heart, PTSD (Oh, nah)",
-          "time": null
-        },
-        {
-          "text": "Hold his chest, let it breathe",
-          "time": null
-        },
-        {
-          "text": "Let it breathe, niggas scheme",
-          "time": null
-        },
-        {
-          "text": "And I got a priest, he got a cross",
-          "time": null
-        },
-        {
-          "text": "Get out of line, send him to God",
-          "time": null
-        },
-        {
-          "text": "I shed a tear, pray for a loss, ooh, yeah (Yeah)",
+          "text": "She fell in love with the cream (yeah), she fell in love with the scene",
           "time": null
         }
       ]
     },
     {
-      "label": "Chorus",
-      "performers": "The Weeknd & Playboi Carti",
+      "label": "Section 9",
+      "performers": "The Weeknd",
+      "lines": [
+        {
+          "text": "Ooh-yeah, her man quiet, not a peep (oh-na)",
+          "time": null
+        },
+        {
+          "text": "Broke his heart, PTSD (oh-na), hold his chest, let it breathe",
+          "time": null
+        },
+        {
+          "text": "Let it breathe, niggas scheme, and I got a priest, he got a cross",
+          "time": null
+        },
+        {
+          "text": "Get outta line, send him to God, I shed a tear, pray for a loss, ooh-yeah (yeah)",
+          "time": null
+        }
+      ]
+    },
+    {
+      "label": "Section 10",
+      "performers": "The Weeknd",
       "lines": [
         {
           "text": "Ever since I was a kid, I been legit (Homixide, Homixide, Homixide, oh, oh)",
           "time": null
         },
         {
-          "text": "If I was you, I would cut up my wrist (Ah)",
+          "text": "If I was you, I would cut up my wrist (ah)",
           "time": null
         },
         {
-          "text": "XO tatted all over her body, yeah (Body, yeah)",
+          "text": "XO tatted all over her body, yeah (body, yeah)",
           "time": null
         },
         {
           "text": "She just wanna roll and I don't mind it, yeah",
           "time": null
-        },
+        }
+      ]
+    },
+    {
+      "label": "Section 11",
+      "performers": "The Weeknd",
+      "lines": [
         {
-          "text": "Ever since I was a jit, I been legit (Yeah, ooh, nah)",
+          "text": "Ever since I was a jit, I been legit (yeah, ooh, na)",
           "time": null
         },
         {
-          "text": "You should let her go, she wanna be it (Oh, nah)",
+          "text": "You should let her go, she wanna be it (oh, na)",
           "time": null
         },
         {
-          "text": "Double-O tatted on her body, yeah (Body, yeah)",
+          "text": "Double-O tatted on her body, oh (body, yeah)",
           "time": null
         },
         {
@@ -269,11 +291,11 @@
       ]
     },
     {
-      "label": "Outro",
-      "performers": "The Weeknd & Playboi Carti",
+      "label": "Section 12",
+      "performers": "The Weeknd",
       "lines": [
         {
-          "text": "Timeless (Oh), timeless, timeless",
+          "text": "Timeless (hey), timeless, timeless",
           "time": null
         },
         {
@@ -281,19 +303,25 @@
           "time": null
         },
         {
-          "text": "Timeless, timeless, timeless (Yeah), timeless",
+          "text": "Timeless, timeless, timeless (yeah), timeless",
           "time": null
         },
         {
-          "text": "Timeless (Yeah), timeless, timeless, we timeless, oh",
+          "text": "Timeless (yeah), timeless, timeless, we timeless, oh",
+          "time": null
+        }
+      ]
+    },
+    {
+      "label": "Section 13",
+      "performers": "The Weeknd",
+      "lines": [
+        {
+          "text": "Whoa (blatt)",
           "time": null
         },
         {
-          "text": "Oh (Blatt)",
-          "time": null
-        },
-        {
-          "text": "Oh (Yuh, lit)",
+          "text": "Whoa (yeah, lit)",
           "time": null
         }
       ]
