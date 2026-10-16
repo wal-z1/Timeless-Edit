@@ -1,7 +1,7 @@
+import lyricsData from '../data/lyrics.json';
+
 export async function loadLyrics() {
-  const response = await fetch('/data/lyrics.json');
-  if (!response.ok) throw new Error(`Lyrics failed to load (${response.status})`);
-  return response.json();
+  return lyricsData;
 }
 
 export function formatLine(text) {
