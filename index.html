@@ -21,11 +21,21 @@
       <button class="autoscroll" type="button" aria-pressed="false" aria-label="Start automatic lyric scrolling">
         <span class="autoscroll__dot"></span><span class="autoscroll__label">Auto-scroll</span><span class="autoscroll__icon">▶</span>
       </button>
+      <section class="autoscroll-prompt" role="dialog" aria-modal="true" aria-labelledby="autoscroll-prompt-title" hidden>
+        <p class="eyebrow">Listening mode</p>
+        <h2 id="autoscroll-prompt-title">Auto-scroll with the song?</h2>
+        <p>Follow the lyrics automatically while Timeless plays. You can change this anytime with the control.</p>
+        <div class="autoscroll-prompt__actions">
+          <button type="button" data-autoscroll-choice="yes">Yes, enable it</button>
+          <button type="button" data-autoscroll-choice="no">Not now</button>
+        </div>
+      </section>
       <aside class="youtube-player" aria-label="YouTube music player">
         <button class="youtube-player__toggle" type="button" aria-expanded="false">Open player <span>↗</span></button>
         <div class="youtube-player__frame">
           <iframe
-            src="https://www.youtube.com/embed/fjehINzx980?rel=0"
+            id="youtube-iframe"
+            src="https://www.youtube.com/embed/fjehINzx980?enablejsapi=1&rel=0"
             title="Timeless — The Weeknd and Playboi Carti on YouTube"
             loading="lazy"
             allow="autoplay; encrypted-media; picture-in-picture"

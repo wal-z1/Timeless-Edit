@@ -44,6 +44,12 @@ a { color: inherit; text-decoration: none; }
 .youtube-player__frame { display: grid; grid-template-rows: 0fr; margin-top: .35rem; opacity: 0; overflow: hidden; transition: grid-template-rows .45s var(--ease), opacity .45s var(--ease); }
 .youtube-player.is-open .youtube-player__frame { grid-template-rows: 1fr; opacity: 1; }
 .youtube-player iframe { width: 100%; min-height: 0; aspect-ratio: 16 / 9; border: 1px solid rgba(217,185,122,.35); }
+.autoscroll-prompt { position: fixed; left: 50%; top: 50%; z-index: 10; width: min(25rem, calc(100vw - 2rem)); transform: translate(-50%, -50%); padding: 1.4rem; border: 1px solid rgba(217,185,122,.55); background: rgba(12,12,12,.96); box-shadow: 0 1rem 4rem rgba(0,0,0,.45); }
+.autoscroll-prompt h2 { margin: .45rem 0 .7rem; color: var(--paper); font: 1.35rem Fraunces, serif; }
+.autoscroll-prompt p:not(.eyebrow) { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.6; }
+.autoscroll-prompt__actions { display: flex; gap: .6rem; margin-top: 1.2rem; }
+.autoscroll-prompt__actions button { min-height: 44px; flex: 1; border: 1px solid rgba(217,185,122,.45); padding: .65rem .7rem; color: var(--paper); background: transparent; font: .58rem Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.autoscroll-prompt__actions button:first-child { color: #090909; background: var(--gold); }
 .statusbar { bottom: 0; padding: 0 clamp(1.2rem, 4vw, 4rem) max(1.4rem, env(safe-area-inset-bottom)); color: var(--muted); }
 .current-section { color: var(--paper); }
 .hero { min-height: 100svh; display: grid; align-content: center; justify-items: center; padding: 5rem 1.2rem; text-align: center; }
@@ -93,8 +99,10 @@ a { color: inherit; text-decoration: none; }
   .hero__title { font-size: clamp(4.3rem, 20vw, 7rem); }
   .hero__artist { max-width: 18rem; line-height: 1.8; }
   .album-cover { width: min(43vw, 11rem); margin-bottom: 1.8rem; }
-  .autoscroll { right: 1rem; bottom: max(4.1rem, calc(env(safe-area-inset-bottom) + 4.1rem)); }
-  .youtube-player { right: 1rem; bottom: max(7.6rem, calc(env(safe-area-inset-bottom) + 7.6rem)); width: min(17rem, calc(100vw - 2rem)); }
+  .autoscroll { right: 1rem; bottom: max(4.1rem, calc(env(safe-area-inset-bottom) + 4.1rem)); min-height: 48px; padding: .55rem .75rem; }
+  .youtube-player { right: 1rem; bottom: max(7.6rem, calc(env(safe-area-inset-bottom) + 7.6rem)); width: min(19rem, calc(100vw - 2rem)); }
+  .youtube-player__toggle { min-height: 48px; padding-inline: .8rem; }
+  .autoscroll-prompt__actions { flex-direction: column; }
   .section-heading { flex-wrap: wrap; line-height: 1.5; margin-bottom: 3.5rem; }
   .lyric-section { padding-block: 5rem; }
   .section-lines { gap: 7rem; }
