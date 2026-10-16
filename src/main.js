@@ -9,6 +9,11 @@ import './styles.css';
 gsap.registerPlugin(ScrollTrigger);
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
+try {
+  localStorage.removeItem('timeless-auto-scroll');
+} catch (error) {
+  console.warn('Auto-scroll preference could not be cleared.', error);
+}
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = window.matchMedia('(pointer: coarse)').matches;
 const lyricsElement = document.querySelector('.lyrics');
@@ -167,31 +172,13 @@ function initExperience(totalLines) {
     if (autoScrolling) stopAutoScroll();
     else startAutoScroll();
   });
-  function rememberAutoScrollChoice(choice) {
-    try {
-      localStorage.setItem('timeless-auto-scroll', choice);
-    } catch (error) {
-      console.warn('Auto-scroll preference could not be saved.', error);
-    }
-  }
   function showAutoScrollPrompt() {
-    let choice;
-    try {
-      choice = localStorage.getItem('timeless-auto-scroll');
-    } catch (error) {
-      console.warn('Auto-scroll preference could not be read.', error);
-    }
-    if (choice) {
-      if (choice === 'yes') startAutoScroll();
-      return;
-    }
     autoScrollPrompt.hidden = false;
     autoScrollPrompt.querySelector('[data-autoscroll-choice="yes"]').focus();
   }
   autoScrollPrompt.addEventListener('click', (event) => {
     const choice = event.target.closest('[data-autoscroll-choice]')?.dataset.autoscrollChoice;
     if (!choice) return;
-    rememberAutoScrollChoice(choice);
     autoScrollPrompt.hidden = true;
     if (choice === 'yes') startAutoScroll();
   });
@@ -227,25 +214,24 @@ function initExperience(totalLines) {
           if (data === window.YT.PlayerState.PLAYING) {
             youtubePlayer.classList.add('is-playing');
             playerPrompt.hidden = true;
-            if (autoScrolling) return;
-            syncLyricsToPlayback();
           } else {
             youtubePlayer.classList.remove('is-playing');
+            stopAutoScroll();
           }
         }
       }
     });
   }
+  let syncedLineIndex = -1;
   function syncLyricsToPlayback() {
     if (!youtubeController?.getDuration) return;
     const duration = youtubeController.getDuration();
     if (!duration) return;
     const ratio = Math.min(1, youtubeController.getCurrentTime() / duration);
     const index = Math.min(lines.length - 1, Math.floor(ratio * lines.length));
+    if (index === syncedLineIndex) return;
+    syncedLineIndex = index;
     activate(lines[index], index);
-    if (autoScrolling) {
-      lines[index].scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
-    }
   }
   window.setInterval(() => {
     if (youtubeController?.getPlayerState?.() === window.YT?.PlayerState.PLAYING) syncLyricsToPlayback();
@@ -266,7 +252,10 @@ function initExperience(totalLines) {
     event.preventDefault();
     if (!youtubeController) return;
     const state = youtubeController.getPlayerState();
-    if (state === window.YT.PlayerState.PLAYING) youtubeController.pauseVideo();
+    if (state === window.YT.PlayerState.PLAYING) {
+      stopAutoScroll();
+      youtubeController.pauseVideo();
+    }
     else {
       setPlaybackPrompt(false);
       youtubeController.playVideo();
