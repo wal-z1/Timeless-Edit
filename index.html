@@ -30,8 +30,8 @@
           <button type="button" data-autoscroll-choice="no">Not now</button>
         </div>
       </section>
-      <aside class="youtube-player" aria-label="YouTube music player">
-        <button class="youtube-player__toggle" type="button" aria-expanded="false">Open player <span>↗</span></button>
+      <aside class="youtube-player is-open" aria-label="YouTube music player">
+        <button class="youtube-player__toggle" type="button" aria-expanded="true">Close player <span>↙</span></button>
         <div class="youtube-player__frame">
           <iframe
             id="youtube-iframe"
@@ -41,6 +41,15 @@
             allow="autoplay; encrypted-media; picture-in-picture"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen></iframe>
+        </div>
+        <div class="youtube-player__prompt" role="dialog" aria-labelledby="play-prompt-title">
+          <p class="eyebrow">Player ready</p>
+          <h2 id="play-prompt-title">Start playing Timeless?</h2>
+          <p>Press play here or use Space anytime to pause and resume.</p>
+          <div class="youtube-player__actions">
+            <button type="button" data-player-choice="play">Start playing</button>
+            <button type="button" data-player-choice="later">Not now</button>
+          </div>
         </div>
       </aside>
       <div class="progress" aria-hidden="true"><span></span></div>

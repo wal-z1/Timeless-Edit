@@ -7,6 +7,8 @@ import { loadLyrics, formatLine } from './lyrics.js';
 import './styles.css';
 
 gsap.registerPlugin(ScrollTrigger);
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = window.matchMedia('(pointer: coarse)').matches;
 const lyricsElement = document.querySelector('.lyrics');
@@ -17,6 +19,7 @@ const autoScrollButton = document.querySelector('.autoscroll');
 const youtubeToggle = document.querySelector('.youtube-player__toggle');
 const youtubePlayer = document.querySelector('.youtube-player');
 const youtubeFrame = document.querySelector('#youtube-iframe');
+const playerPrompt = document.querySelector('.youtube-player__prompt');
 const autoScrollPrompt = document.querySelector('.autoscroll-prompt');
 let autoScrollTimer;
 let autoScrolling = false;
@@ -51,6 +54,8 @@ function initExperience(totalLines) {
   const lines = gsap.utils.toArray('.lyric-line');
   const sections = gsap.utils.toArray('.lyric-section');
   const lenis = coarse || prefersReduced ? null : new Lenis({ autoRaf: false, smoothWheel: true });
+  if (lenis) lenis.scrollTo(0, { immediate: true });
+  else window.scrollTo({ top: 0, behavior: 'auto' });
   if (lenis) {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
@@ -221,6 +226,7 @@ function initExperience(totalLines) {
         onStateChange: ({ data }) => {
           if (data === window.YT.PlayerState.PLAYING) {
             youtubePlayer.classList.add('is-playing');
+            playerPrompt.hidden = true;
             if (autoScrolling) return;
             syncLyricsToPlayback();
           } else {
@@ -244,7 +250,30 @@ function initExperience(totalLines) {
   window.setInterval(() => {
     if (youtubeController?.getPlayerState?.() === window.YT?.PlayerState.PLAYING) syncLyricsToPlayback();
   }, 500);
+  function setPlaybackPrompt(visible) {
+    playerPrompt.hidden = !visible;
+    if (visible) playerPrompt.querySelector('[data-player-choice="play"]').focus();
+  }
+  playerPrompt.addEventListener('click', (event) => {
+    const choice = event.target.closest('[data-player-choice]')?.dataset.playerChoice;
+    if (!choice) return;
+    setPlaybackPrompt(false);
+    if (choice === 'play') youtubeController?.playVideo();
+    youtubeToggle.focus();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.code !== 'Space' || event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+    event.preventDefault();
+    if (!youtubeController) return;
+    const state = youtubeController.getPlayerState();
+    if (state === window.YT.PlayerState.PLAYING) youtubeController.pauseVideo();
+    else {
+      setPlaybackPrompt(false);
+      youtubeController.playVideo();
+    }
+  });
   loadYouTubeApi();
+  setPlaybackPrompt(true);
   showAutoScrollPrompt();
   document.querySelector('.replay').addEventListener('click', (event) => {
     event.preventDefault();
