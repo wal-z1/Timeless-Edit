@@ -21,14 +21,19 @@
       <button class="autoscroll" type="button" aria-pressed="false" aria-label="Start automatic lyric scrolling">
         <span class="autoscroll__dot"></span><span class="autoscroll__label">Auto-scroll</span><span class="autoscroll__icon">▶</span>
       </button>
-      <section class="autoscroll-prompt" role="dialog" aria-modal="true" aria-labelledby="autoscroll-prompt-title" hidden>
+      <section class="setup-prompt" role="dialog" aria-modal="true" aria-labelledby="setup-prompt-title">
         <p class="eyebrow">Listening mode</p>
-        <h2 id="autoscroll-prompt-title">Auto-scroll with the song?</h2>
-        <p>Follow the lyrics automatically while Timeless plays. You can change this anytime with the control.</p>
-        <div class="autoscroll-prompt__actions">
-          <button type="button" data-autoscroll-choice="yes">Yes, enable it</button>
-          <button type="button" data-autoscroll-choice="no">Not now</button>
+        <h2 id="setup-prompt-title">Set up your experience</h2>
+        <p>Choose how you want to experience Timeless. You can change these controls anytime.</p>
+        <div class="setup-prompt__choices">
+          <button class="setup-prompt__choice is-selected" type="button" aria-pressed="true" data-setup-choice="play">
+            <span><strong>Playback</strong><small>Start the YouTube player</small></span><b>ON</b>
+          </button>
+          <button class="setup-prompt__choice" type="button" aria-pressed="false" data-setup-choice="scroll">
+            <span><strong>Auto-scroll</strong><small>Move through lyrics automatically</small></span><b>OFF</b>
+          </button>
         </div>
+        <button class="setup-prompt__continue" type="button">Continue</button>
       </section>
       <aside class="youtube-player is-open" aria-label="YouTube music player">
         <button class="youtube-player__toggle" type="button" aria-expanded="true">Close player <span>↙</span></button>
@@ -41,15 +46,6 @@
             allow="autoplay; encrypted-media; picture-in-picture"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen></iframe>
-        </div>
-        <div class="youtube-player__prompt" role="dialog" aria-labelledby="play-prompt-title">
-          <p class="eyebrow">Player ready</p>
-          <h2 id="play-prompt-title">Start playing Timeless?</h2>
-          <p>Press play here or use Space anytime to pause and resume.</p>
-          <div class="youtube-player__actions">
-            <button type="button" data-player-choice="play">Start playing</button>
-            <button type="button" data-player-choice="later">Not now</button>
-          </div>
         </div>
       </aside>
       <div class="progress" aria-hidden="true"><span></span></div>

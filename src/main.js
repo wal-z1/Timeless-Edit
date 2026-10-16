@@ -24,8 +24,11 @@ const autoScrollButton = document.querySelector('.autoscroll');
 const youtubeToggle = document.querySelector('.youtube-player__toggle');
 const youtubePlayer = document.querySelector('.youtube-player');
 const youtubeFrame = document.querySelector('#youtube-iframe');
-const playerPrompt = document.querySelector('.youtube-player__prompt');
-const autoScrollPrompt = document.querySelector('.autoscroll-prompt');
+const setupPrompt = document.querySelector('.setup-prompt');
+const setupChoices = {
+  play: setupPrompt.querySelector('[data-setup-choice="play"]'),
+  scroll: setupPrompt.querySelector('[data-setup-choice="scroll"]')
+};
 let autoScrollTimer;
 let autoScrolling = false;
 let youtubeController;
@@ -172,15 +175,16 @@ function initExperience(totalLines) {
     if (autoScrolling) stopAutoScroll();
     else startAutoScroll();
   });
-  function showAutoScrollPrompt() {
-    autoScrollPrompt.hidden = false;
-    autoScrollPrompt.querySelector('[data-autoscroll-choice="yes"]').focus();
+  function setSetupChoice(choice, selected) {
+    setupChoices[choice].setAttribute('aria-pressed', String(selected));
+    setupChoices[choice].classList.toggle('is-selected', selected);
+    setupChoices[choice].querySelector('b').textContent = selected ? 'ON' : 'OFF';
   }
-  autoScrollPrompt.addEventListener('click', (event) => {
-    const choice = event.target.closest('[data-autoscroll-choice]')?.dataset.autoscrollChoice;
-    if (!choice) return;
-    autoScrollPrompt.hidden = true;
-    if (choice === 'yes') startAutoScroll();
+  Object.entries(setupChoices).forEach(([choice, button]) => {
+    button.addEventListener('click', () => {
+      const selected = button.getAttribute('aria-pressed') !== 'true';
+      setSetupChoice(choice, selected);
+    });
   });
   window.addEventListener('wheel', stopAutoScroll, { passive: true });
   window.addEventListener('touchstart', stopAutoScroll, { passive: true });
@@ -213,7 +217,6 @@ function initExperience(totalLines) {
         onStateChange: ({ data }) => {
           if (data === window.YT.PlayerState.PLAYING) {
             youtubePlayer.classList.add('is-playing');
-            playerPrompt.hidden = true;
           } else {
             youtubePlayer.classList.remove('is-playing');
             stopAutoScroll();
@@ -236,15 +239,10 @@ function initExperience(totalLines) {
   window.setInterval(() => {
     if (youtubeController?.getPlayerState?.() === window.YT?.PlayerState.PLAYING) syncLyricsToPlayback();
   }, 500);
-  function setPlaybackPrompt(visible) {
-    playerPrompt.hidden = !visible;
-    if (visible) playerPrompt.querySelector('[data-player-choice="play"]').focus();
-  }
-  playerPrompt.addEventListener('click', (event) => {
-    const choice = event.target.closest('[data-player-choice]')?.dataset.playerChoice;
-    if (!choice) return;
-    setPlaybackPrompt(false);
-    if (choice === 'play') youtubeController?.playVideo();
+  setupPrompt.querySelector('.setup-prompt__continue').addEventListener('click', () => {
+    setupPrompt.hidden = true;
+    if (setupChoices.scroll.getAttribute('aria-pressed') === 'true') startAutoScroll();
+    if (setupChoices.play.getAttribute('aria-pressed') === 'true') youtubeController?.playVideo();
     youtubeToggle.focus();
   });
   document.addEventListener('keydown', (event) => {
@@ -257,13 +255,10 @@ function initExperience(totalLines) {
       youtubeController.pauseVideo();
     }
     else {
-      setPlaybackPrompt(false);
       youtubeController.playVideo();
     }
   });
   loadYouTubeApi();
-  setPlaybackPrompt(true);
-  showAutoScrollPrompt();
   document.querySelector('.replay').addEventListener('click', (event) => {
     event.preventDefault();
     if (lenis) lenis.scrollTo(0, { duration: 1.4 });
